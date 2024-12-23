@@ -1,0 +1,30 @@
+<router-outlet></router-outlet>
+
+<div class="container">
+  <form (ngSubmit)="login()">
+    <h2>Admin Login</h2>
+    <label>Email</label>
+    <input type="text" [(ngModel)]="email" name="email" required>
+    
+    <label>Password</label>
+    <input type="password" [(ngModel)]="password" name="password" required>
+    
+    <button type="submit">Login</button>
+  </form>
+
+  <!-- Success and Failure Modals (similar to login page) -->
+  <div *ngIf="isLoginSuccessVisible" class="confirmation-overlay">
+    <div class="confirmation-box">
+      <h3>Login Successful</h3>
+      <p>Welcome back, {{ email }}!</p>
+      <button (click)="closeLoginSuccess()">OK</button>
+    </div>
+  </div>
+
+  <div *ngIf="isLoginFailedVisible" class="confirmation-overlay">
+    <div class="confirmation-box">
+      <h3>Invalid Credentials</h3>
+      <button (click)="closeLoginFailed()">OK</button>
+    </div>
+  </div>
+</div>

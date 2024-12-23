@@ -1,0 +1,59 @@
+<router-outlet></router-outlet>
+
+<div class="container">
+  <div *ngIf="!isSignup">
+      <form (ngSubmit)="login()">
+        <h2>Login</h2>
+          <label>Email</label>
+          <input type="text" [(ngModel)]="email" name="email" required>
+          <label>Password</label>
+          <input type="password" [(ngModel)]="password" name="password" required>
+          <button type="submit">Login</button>
+      </form>
+      <a href="" (click)="toggleForm($event)">Don't have an account? Sign up</a>
+  </div>
+ 
+  <div *ngIf="isSignup">
+      <form (ngSubmit)="signup()">
+        <h2>Signup</h2>
+          <label>Username</label>
+          <input type="text" [(ngModel)]="newUsername" name="newUsername" required>
+          <label>Email</label>
+          <input type="email" [(ngModel)]="email" name="email" required>
+          <label>Password</label>
+          <input type="password" [(ngModel)]="newPassword" name="newPassword" required>
+          <button type="submit">Signup</button>
+      </form>
+      <a href="" (click)="toggleForm($event)">Already have an account? Login</a>
+  </div>
+
+  <div *ngIf="isLoginSuccessVisible" class="confirmation-overlay">
+      <div class="confirmation-box">
+          <h3>Login Successful</h3>
+          <p>Welcome back, {{ username }}!</p>
+          <button (click)="closeLoginSuccess()">OK</button>
+      </div>
+  </div>
+
+  <div *ngIf="isLoginFailedVisible" class="confirmation-overlay">
+      <div class="confirmation-box">
+          <h3>Invalid Credentials</h3>
+          <button (click)="closeLoginFailed()">OK</button>
+      </div>
+  </div>
+
+  <div *ngIf="isSignupSuccessVisible" class="confirmation-overlay">
+      <div class="confirmation-box">
+          <h3>Signup Successful</h3>
+          <p>Welcome aboard, {{ newUsername }}! Please login to continue.</p>
+          <button (click)="closeSignupSuccess()">OK</button>
+      </div>
+  </div>
+
+  <div *ngIf="isSignupFailedVisible" class="confirmation-overlay">
+      <div class="confirmation-box">
+          <h3>Signup Failed</h3>
+          <button (click)="closeSignupFailed()">OK</button>
+      </div>
+  </div>
+</div>
