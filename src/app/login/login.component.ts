@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   isSignup = false;
@@ -19,7 +20,7 @@ export class LoginComponent {
   newPassword = '';
   email = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   toggleForm(event: Event) {
     event.preventDefault();
@@ -45,19 +46,32 @@ export class LoginComponent {
 
   login() {
     const credentials = { email: this.email, password: this.password };
-    this.http.post('http://localhost:3000/login', credentials)
-      .subscribe({
-        next: () => { this.isLoginSuccessVisible = true; },
-        error: () => { this.isLoginFailedVisible = true; }
-      });
+
+    this.http.post('http://localhost:3000/auth/login', credentials).subscribe({
+      next: (response: any) => {
+        localStorage.setItem('token', response.access_token);
+        localStorage.setItem('userId', response.userId);
+        this.router.navigate(['/']); // Redirect to homepage
+      },
+      error: () => {
+        this.isLoginFailedVisible = true;
+      },
+    });
   }
 
   signup() {
-    const newUser = { username: this.newUsername, password: this.newPassword, email: this.email };
-    this.http.post('http://localhost:3000/signup', newUser)
-      .subscribe({
-        next: () => { this.isSignupSuccessVisible = true; },
-        error: () => { this.isSignupFailedVisible = true; }
-      });
+    const newUser = {
+      name: this.newUsername,
+      password: this.newPassword,
+      email: this.email,
+    };
+    this.http.post('http://localhost:3000/register', newUser).subscribe({
+      next: () => {
+        this.isSignupSuccessVisible = true;
+      },
+      error: () => {
+        this.isSignupFailedVisible = true;
+      },
+    });
   }
 }
