@@ -165,59 +165,54 @@ export class PolicyuserComponent implements OnInit {
     policyNumber: '',
     details: '',
   };
-  userName: string = ''; // To store the logged-in user's name
-  userId: string = ''; // To store the logged-in user's ID
-
+  userName: string = ''; 
+  userId: string = ''; 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    // Retrieve user details from localStorage
-    this.userName = localStorage.getItem('userName') || 'Guest'; // Default to 'Guest' if not found
-    this.userId = localStorage.getItem('userId') || ''; // Default to empty string if not found
+    this.fetchUserDetails();
+  }
 
-    // Check if userId is missing and handle the error
-    if (!this.userId) {
-      console.error('User ID not found. Please log in again.');
-      alert('User ID not found. Please log in again.');
-      // Optionally redirect to login page here
-      return;
-    }
+  fetchUserDetails() {
+    this.http.get<any>('http://localhost:3000/api/users/details').subscribe({
+      next: (user) => {
+        this.userName = user.name;
+        this.userId = user.id;
 
-    // Fetch data only if userId is present
-    this.fetchActivePolicies();
-    this.fetchClaimHistory();
+        this.fetchActivePolicies();
+        this.fetchClaimHistory();
+      },
+      error: (err) => {
+        console.error('Error fetching user details:', err);
+        alert('Unable to fetch user details. Please log in again.');
+      },
+    });
   }
 
   fetchActivePolicies() {
-    if (!this.userId) {
-      console.error('User ID not found. Unable to fetch policies.');
-      return;
-    }
-
-    this.http.get<any[]>(`http://localhost:3000/api/policies/user/${this.userId}`).subscribe({
-      next: (policies) => {
-        this.activePolicies = policies;
-      },
-      error: (err) => {
-        console.error('Error fetching active policies:', err);
-      },
-    });
+    this.http
+      .get<any[]>(`http://localhost:3000/api/policies/user/${this.userId}`)
+      .subscribe({
+        next: (policies) => {
+          this.activePolicies = policies;
+        },
+        error: (err) => {
+          console.error('Error fetching active policies:', err);
+        },
+      });
   }
 
   fetchClaimHistory() {
-    if (!this.userId) {
-      console.error('User ID not found. Unable to fetch claim history.');
-      return;
-    }
-
-    this.http.get<any[]>(`http://localhost:3000/api/claims/user/${this.userId}`).subscribe({
-      next: (claims) => {
-        this.claimHistory = claims;
-      },
-      error: (err) => {
-        console.error('Error fetching claim history:', err);
-      },
-    });
+    this.http
+      .get<any[]>(`http://localhost:3000/api/claims/user/${this.userId}`)
+      .subscribe({
+        next: (claims) => {
+          this.claimHistory = claims;
+        },
+        error: (err) => {
+          console.error('Error fetching claim history:', err);
+        },
+      });
   }
 
   setView(view: string) {
@@ -225,18 +220,13 @@ export class PolicyuserComponent implements OnInit {
   }
 
   submitClaim() {
-    if (!this.userId) {
-      console.error('User ID not found. Unable to submit claim.');
-      return;
-    }
-
     const claimData = {
       userId: this.userId,
       policyNumber: this.claim.policyNumber,
       details: this.claim.details,
     };
 
-    this.http.post(`http://localhost:3000/api/claims`, claimData).subscribe({
+    this.http.post('http://localhost:3000/api/claims', claimData).subscribe({
       next: () => {
         alert('Claim submitted successfully!');
         this.fetchClaimHistory(); // Refresh claim history
