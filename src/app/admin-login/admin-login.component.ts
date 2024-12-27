@@ -12,7 +12,6 @@ export class AdminLoginComponent {
   isLoginFailedVisible = false;
 
   login() {
-    // Simple validation example
     if (this.email === 'admin@admin.com' && this.password === 'admin123') {
       this.isLoginSuccessVisible = true;
     } else {

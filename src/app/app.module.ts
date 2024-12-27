@@ -5,13 +5,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module'; // Import AppRoutingModule
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { AdminLoginComponent } from './admin-login/admin-login.component'; // Import LoginComponent
+import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { PolicyuserComponent } from './policyuser/policyuser.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    AdminLoginComponent // Declare LoginComponent
+    AdminLoginComponent,
+    PolicyuserComponent,
   ],
   imports: [
     BrowserModule,

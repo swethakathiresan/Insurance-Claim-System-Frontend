@@ -50,8 +50,7 @@ export class LoginComponent {
     this.http.post('http://localhost:3000/auth/login', credentials).subscribe({
       next: (response: any) => {
         localStorage.setItem('token', response.access_token);
-        localStorage.setItem('userId', response.userId);
-        this.router.navigate(['/']); // Redirect to homepage
+        this.router.navigate(['/policyuser']);
       },
       error: () => {
         this.isLoginFailedVisible = true;

@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   sidebarOpen = false;
   isLoginRoute = false;
   isAdminLoginRoute = false; // Track if we are on the admin-login route
+  isPolicyUserRoute = false;
 
   user: any;
 
@@ -25,6 +26,7 @@ export class AppComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         this.isLoginRoute = event.url === '/login';
         this.isAdminLoginRoute = event.url === '/admin-login'; // Detect admin-login route
+        this.isPolicyUserRoute = event.url === '/policyuser';
       }
     });
   }

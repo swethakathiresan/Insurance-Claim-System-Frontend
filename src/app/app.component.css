@@ -1,86 +1,62 @@
-/* General Styles */
+General Layout
 body {
+  font-family: 'Arial', sans-serif;
   margin: 0;
-  font-family: Arial, sans-serif;
-  padding-top: 70px; /* Reserve space for the fixed top navigation */
+  padding: 0;
+  background-color: #f4f6f9;
 }
 
+/* Top Navigation */
 .top-nav {
-  position: fixed; /* Fix the top navigation at the top of the page */
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000; /* Ensure it stays on top of other content */
-  background-color: #2e4a7d;
+  position: static; /* Set the top navigation to static */
+  background-color: #2c3e50;
   color: white;
   display: flex;
+  justify-content: space-between;
+  padding: 15px;
   align-items: center;
-  padding: 10px 20px;
-  height: 70px;
-}
-
-.top-nav h1 {
-  margin: 0;
-  font-size: 2em;
-  white-space: nowrap; /* Prevent wrapping of the h1 text */
-  text-align: center; /* Center the text */
-  flex: 1; /* Allow h1 to take available space */
+  z-index: 1000;
 }
 
 .nav-left {
-  flex: 1; /* Allow left section to take space */
   display: flex;
-  align-items: center; /* Center items vertically */
+  align-items: center; /* Align sidebar button and title on the same line */
 }
 
-.nav-right {
-  margin-left: auto; /* Push the right section to the right */
-  display: flex;
-  align-items: center; /* Center items vertically */
-}
-
-.nav-left button, .nav-right button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.5em;
-  cursor: pointer;
+.nav-left h1 {
+  font-size: 24px;
+  margin-left: 10px;
 }
 
 .menu-btn {
   background: none;
   border: none;
   color: white;
-  font-size: 1.5em;
+  font-size: 30px;
   cursor: pointer;
 }
 
 .nav-right .login-btn {
-  background-color: #f39c12;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
+  background-color: #16a085;
   color: white;
-  font-size: 1em;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
 }
 
-.nav-right .login-btn:hover {
-  background-color: #d67e04;
-}
-
-/* Sidebar Styles */
+/* Sidebar */
 .sidebar {
   position: fixed;
-  top: 70px; /* Start below the fixed top navigation */
+  top: 0;
   left: -250px;
   width: 250px;
-  height: calc(100% - 70px); /* Fill the remaining height below the top navigation */
+  height: 100%;
   background-color: #34495e;
-  color: white;
-  overflow: hidden;
-  transition: 0.3s ease;
-  padding-top: 20px;
+  transition: all 0.3s ease;
+  padding-top: 60px;
+  z-index: 1000;
 }
 
 .sidebar.open {
@@ -90,81 +66,109 @@ body {
 .sidebar ul {
   list-style-type: none;
   padding: 0;
-  margin: 0;
 }
 
-.sidebar ul li {
-  padding: 15px 20px;
-  cursor: pointer;
-  font-size: 1.1em;
-}
-
-.sidebar ul li:hover {
-  background-color: #2c3e50;
-}
-
-/* Close Button for Sidebar */
-.close-btn {
-  background: none;
-  border: none;
+.sidebar-link {
+  display: block;
+  padding: 10px 20px;
   color: white;
-  font-size: 1.5em;
-  padding: 15px;
-  cursor: pointer;
-  float: right;
+  text-decoration: none;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-link:hover {
+  background-color: #2ecc71;
+}
+
+.close-btn {
   position: absolute;
   top: 10px;
   right: 10px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
 }
 
-/* Main Content Styles */
+/* Main Content */
 .content {
-  margin-left: 20px; /* Add margin to prevent overlap with sidebar */
-  margin-top: 20px;
+  padding: 80px 20px 20px;
 }
 
-.content h2 {
-  color: #333;
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.content p {
+.section-title {
+  font-size: 28px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center; /* Center the heading */
+}
+
+.section-description {
+  font-size: 18px;
   line-height: 1.6;
-  color: #555;
+  color: #7f8c8d;
+  margin-bottom: 20px;
 }
 
-/* Responsive Design */
+/* Feature Cards */
+.feature-cards {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  gap: 20px;
+}
+
+.feature-card {
+  background-color: white;
+  padding: 20px;
+  width: 30%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+}
+
+.card-title {
+  font-size: 22px;
+  color: #34495e;
+}
+
+.card-description {
+  font-size: 16px;
+  color: #7f8c8d;
+}
+
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
-  body {
-    padding-top: 100px; /* Adjust padding for smaller screens */
-  }
-
-  .top-nav {
+  .feature-cards {
     flex-direction: column;
-    align-items: flex-start;
-    padding: 15px;
-  }
-
-  .top-nav h1 {
-    font-size: 1.2em; /* Adjust font size for smaller screens */
-    text-align: left; /* Align title to the left */
-  }
-
-  .nav-left, .nav-right {
-    width: 100%; /* Allow these sections to take full width in smaller screens */
-    display: flex;
-    justify-content: space-between;
     align-items: center;
   }
 
-  .sidebar {
-    width: 200px; /* Smaller sidebar width */
+  .feature-card {
+    width: 80%;
+    margin-bottom: 20px;
   }
 
-  .sidebar ul li {
-    font-size: 1em; /* Adjust font size for sidebar items */
+  .top-nav {
+    padding: 10px;
   }
 
-  .content {
-    margin-left: 10px; /* Adjust margin for smaller screens */
+  .nav-left h1 {
+    font-size: 20px;
+  }
+
+  .menu-btn {
+    font-size: 25px;
   }
 }

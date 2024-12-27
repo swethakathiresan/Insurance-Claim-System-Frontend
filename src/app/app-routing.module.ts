@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';  // Import LoginComponent
-import { AdminLoginComponent } from './admin-login/admin-login.component'; // Import AdminLoginComponent
+import { LoginComponent } from './login/login.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { PolicyuserComponent } from './policyuser/policyuser.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },  
-  { path: 'admin-login', component: AdminLoginComponent },  // Ensure Admin Login route is here
+  { path: 'login', component: LoginComponent },
+  { path: 'admin-login', component: AdminLoginComponent },
+  { path: 'policyuser', component: PolicyuserComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

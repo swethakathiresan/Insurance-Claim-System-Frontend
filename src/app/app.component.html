@@ -1,125 +1,55 @@
-<router-outlet></router-outlet> <!-- Routed content will appear here -->
+<router-outlet></router-outlet>
 
 <!-- Static Content for Non-Login Pages (e.g., Top Nav and Sidebar) -->
-<div *ngIf="!isLoginRoute && !isAdminLoginRoute" class="top-nav">
+<div *ngIf="!isLoginRoute && !isAdminLoginRoute && !isPolicyUserRoute" class="top-nav">
   <div class="nav-left">
     <button class="menu-btn" (click)="toggleSidebar()">☰</button>
-    <h1>Insurance Claims Management</h1>
+    <h1 class="nav-title">Insurance Claims Management</h1>
   </div>
   <div class="nav-right">
-    <button class="login-btn" [routerLink]="'/login'">Login</button> 
+    <button class="login-btn" [routerLink]="'/login'">Login</button>
   </div>
 </div>
 
-<div *ngIf="!isLoginRoute && !isAdminLoginRoute" class="sidebar" [class.open]="sidebarOpen">
+<!-- Sidebar -->
+<div *ngIf="!isLoginRoute && !isAdminLoginRoute && !isPolicyUserRoute" class="sidebar" [class.open]="sidebarOpen">
   <button class="close-btn" (click)="toggleSidebar()">✖</button>
   <ul>
-    <li>Home</li>
-    <li>
-      <a [routerLink]="'/admin-login'" style="color: white; text-decoration: none;">Admin Login</a> 
-    </li>
+    <li><a routerLink="/" class="sidebar-link">Home</a></li>
+    <li><a routerLink="/admin-login" class="sidebar-link">Admin Login</a></li>
   </ul>
 </div>
 
 <!-- Main Content for Non-Login Pages -->
-<div *ngIf="!isLoginRoute && !isAdminLoginRoute" class="content">
-  <br><br><br>
-  <h2>What is Insurance Claims Management System?</h2>
-  <p>
-    Insurance Claims Management System is a software application that helps insurance companies manage and evaluate claims from their customers.
-    It helps in organizing, tracking, and processing claims more efficiently, reducing manual work, and improving overall productivity.
-  </p>
-  <p>
-    The key features include investigating submitted claims by capturing relevant details like medical reports...
-  </p>
-  <p>
-    Insurance Claims Management System is a software application that helps insurance companies manage and evaluate claims from their customers.
-    It helps in organizing, tracking, and processing claims more efficiently, reducing manual work, and improving overall productivity.
-  </p>
-  <p>
-    The key features include investigating submitted claims by capturing relevant details like medical reports...
-  </p>
-  <p>
-    Insurance Claims Management System is a software application that helps insurance companies manage and evaluate claims from their customers.
-    It helps in organizing, tracking, and processing claims more efficiently, reducing manual work, and improving overall productivity.
-  </p>
-  <p>
-    The key features include investigating submitted claims by capturing relevant details like medical reports...
-  </p>
+<div *ngIf="!isLoginRoute && !isAdminLoginRoute && !isPolicyUserRoute" class="content">
+  <div class="content-wrapper">
+    <h2 class="section-title">What is Insurance Claims Management System?</h2>
+    <p class="section-description">
+      Insurance Claims Management System is a software application that helps insurance companies manage and evaluate claims from their customers. It helps in organizing, tracking, and processing claims more efficiently, reducing manual work, and improving overall productivity.
+    </p>
+    <p class="section-description">
+      The key features include investigating submitted claims by capturing relevant details like medical reports, policy information, and more.
+    </p>
 
-  <p>
-    Insurance Claims Management System is a software application that helps insurance companies manage and evaluate claims from their customers.
-    It helps in organizing, tracking, and processing claims more efficiently, reducing manual work, and improving overall productivity.
-  </p>
-  <p>
-    The key features include investigating submitted claims by capturing relevant details like medical reports...
-  </p>
-  <p>
-    Insurance Claims Management System is a software application that helps insurance companies manage and evaluate claims from their customers.
-    It helps in organizing, tracking, and processing claims more efficiently, reducing manual work, and improving overall productivity.
-  </p>
-  <p>
-    The key features include investigating submitted claims by capturing relevant details like medical reports...
-  </p>
-  <p>
-    Insurance Claims Management System is a software application that helps insurance companies manage and evaluate claims from their customers.
-    It helps in organizing, tracking, and processing claims more efficiently, reducing manual work, and improving overall productivity.
-  </p>
-  <p>
-    The key features include investigating submitted claims by capturing relevant details like medical reports...
-  </p>
-  <p>
-    Insurance Claims Management System is a software application that helps insurance companies manage and evaluate claims from their customers.
-    It helps in organizing, tracking, and processing claims more efficiently, reducing manual work, and improving overall productivity.
-  </p>
-  <p>
-    The key features include investigating submitted claims by capturing relevant details like medical reports...
-  </p>
-  <p>
-    Insurance Claims Management System is a software application that helps insurance companies manage and evaluate claims from their customers.
-    It helps in organizing, tracking, and processing claims more efficiently, reducing manual work, and improving overall productivity.
-  </p>
-  <p>
-    The key features include investigating submitted claims by capturing relevant details like medical reports...
-  </p>
-  <p>
-    Insurance Claims Management System is a software application that helps insurance companies manage and evaluate claims from their customers.
-    It helps in organizing, tracking, and processing claims more efficiently, reducing manual work, and improving overall productivity.
-  </p>
-  <p>
-    The key features include investigating submitted claims by capturing relevant details like medical reports...
-  </p>
-  <p>
-    Insurance Claims Management System is a software application that helps insurance companies manage and evaluate claims from their customers.
-    It helps in organizing, tracking, and processing claims more efficiently, reducing manual work, and improving overall productivity.
-  </p>
-  <p>
-    The key features include investigating submitted claims by capturing relevant details like medical reports...
-  </p>
-  <p>
-    Insurance Claims Management System is a software application that helps insurance companies manage and evaluate claims from their customers.
-    It helps in organizing, tracking, and processing claims more efficiently, reducing manual work, and improving overall productivity.
-  </p>
-  <p>
-    The key features include investigating submitted claims by capturing relevant details like medical reports...
-  </p>
-  <p>
-    Insurance Claims Management System is a software application that helps insurance companies manage and evaluate claims from their customers.
-    It helps in organizing, tracking, and processing claims more efficiently, reducing manual work, and improving overall productivity.
-  </p>
-  <p>
-    The key features include investigating submitted claims by capturing relevant details like medical reports...
-  </p>
-  <p>
-    Insurance Claims Management System is a software application that helps insurance companies manage and evaluate claims from their customers.
-    It helps in organizing, tracking, and processing claims more efficiently, reducing manual work, and improving overall productivity.
-  </p>
-  <p>
-    The key features include investigating submitted claims by capturing relevant details like medical reports...
-  </p>
-  <p>
-    Insurance Claims Management System is a software application that helps insurance companies manage and evaluate claims from their customers.
-    It helps in organizing, tracking, and processing claims more efficiently, reducing manual work, and improving overall productivity.
-  </p>
-
+    <div class="feature-cards">
+      <div class="feature-card">
+        <h3 class="card-title">Claims Processing</h3>
+        <p class="card-description">
+          Efficient processing of claims with detailed analysis and tracking.
+        </p>
+      </div>
+      <div class="feature-card">
+        <h3 class="card-title">Real-Time Updates</h3>
+        <p class="card-description">
+          Get real-time status updates of claims for better customer service.
+        </p>
+      </div>
+      <div class="feature-card">
+        <h3 class="card-title">Data Security</h3>
+        <p class="card-description">
+          Ensuring the highest level of security for sensitive claim data.
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
