@@ -64,7 +64,7 @@ export class LoginComponent {
       password: this.newPassword,
       email: this.email,
     };
-    this.http.post('http://localhost:3000/register', newUser).subscribe({
+    this.http.post('http://localhost:3000/api/users/register', newUser).subscribe({
       next: () => {
         this.isSignupSuccessVisible = true;
       },

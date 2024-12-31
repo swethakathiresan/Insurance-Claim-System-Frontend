@@ -1,0 +1,28 @@
+<router-outlet></router-outlet>
+
+<div class="claims-list">
+    <h2>Claims Overview</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Type</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let claim of claims">
+          <td>{{ claim.id }}</td>
+          <td>{{ claim.type }}</td>
+          <td>{{ claim.status }}</td>
+          <td>{{ claim.date }}</td>
+          <td>
+            <button class="view-button" [routerLink]="['/claims', claim.id]">View</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

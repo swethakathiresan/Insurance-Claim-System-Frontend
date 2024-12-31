@@ -12,6 +12,9 @@ export class AppComponent implements OnInit {
   isLoginRoute = false;
   isAdminLoginRoute = false; // Track if we are on the admin-login route
   isPolicyUserRoute = false;
+  isAdminDashboardRoute = false;
+  isClaimsListRoute = false;
+  isClaimsDetailsRoute = false;
 
   user: any;
 
@@ -25,8 +28,12 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.isLoginRoute = event.url === '/login';
-        this.isAdminLoginRoute = event.url === '/admin-login'; // Detect admin-login route
+        this.isAdminLoginRoute = event.url === '/admin-login'; 
         this.isPolicyUserRoute = event.url === '/policyuser';
+        this.isAdminDashboardRoute = event.url === '/admin-dashboard'; 
+        this.isClaimsListRoute = event.url === '/claims-list';
+        this.isClaimsDetailsRoute = event.url.startsWith('/claims/');
+
       }
     });
   }

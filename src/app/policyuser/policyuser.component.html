@@ -1,25 +1,18 @@
 <router-outlet></router-outlet>
 
-<!-- Top Navigation -->
 <div class="top-nav">
   <h1 class="nav-title">Insurance Claims Management</h1>
   <div class="nav-right">
-    <span>Welcome, {{ userName }}</span> <!-- Display user's name -->
-    <button class="logout-btn" >Logout</button> 
+    <span>Welcome, {{ userName }}</span>
+    <button class="logout-btn" (click)="logout()">Logout</button>
   </div>
 </div>
 
 <div class="sidebar">
   <ul>
-    <li>
-      <button (click)="setView('dashboard')">Dashboard</button>
-    </li>
-    <li>
-      <button (click)="setView('submit-claim')">Submit Claim</button>
-    </li>
-    <li>
-      <button (click)="setView('claim-history')">Claim History</button>
-    </li>
+    <li><button (click)="setView('dashboard')">Dashboard</button></li>
+    <li><button (click)="setView('submit-claim')">Submit Claim</button></li>
+    <li><button (click)="setView('claim-history')">Claim History</button></li>
   </ul>
 </div>
 
@@ -28,7 +21,7 @@
     <h2>Dashboard</h2>
     <ul>
       <li *ngFor="let policy of activePolicies">
-        Policy Number: {{ policy.policyNumber }} - Status: {{ policy.status }}
+        Policy Number: {{ policy.policy_id }} - Status: {{ policy.status }}
       </li>
     </ul>
   </div>
@@ -38,22 +31,45 @@
     <form (ngSubmit)="submitClaim()">
       <label for="policyNumber">Policy Number:</label>
       <input id="policyNumber" [(ngModel)]="claim.policyNumber" name="policyNumber" required />
-
+  
+      <label for="claimType">Claim Type:</label>
+      <select id="claimType" [(ngModel)]="claim.claimType" name="claimType" required>
+        <option value="Accident">Accident</option>
+        <option value="Health">Health</option>
+        <option value="Theft">Theft</option>
+      </select>
+  
+      <label for="amountRequested">Amount Requested:</label>
+      <input
+        id="amountRequested"
+        type="number"
+        [(ngModel)]="claim.amountRequested"
+        name="amountRequested"
+        min="1"
+        required
+      />
+  
       <label for="details">Claim Details:</label>
       <textarea id="details" [(ngModel)]="claim.details" name="details" required></textarea>
-
+  
       <label for="files">Upload Files:</label>
       <input type="file" id="files" (change)="uploadFiles($event)" multiple />
-
+  
       <button type="submit">Submit</button>
     </form>
   </div>
+  
 
   <div *ngIf="view === 'claim-history'">
     <h2>Claim History</h2>
     <ul>
       <li *ngFor="let claim of claimHistory">
-        Claim ID: {{ claim.claimId }}, Details: {{ claim.details }}, Status: {{ claim.status }}
+        Claim ID: {{ claim.claim_id }}, 
+        Policy: {{ claim.policy.policy_id }},
+        Type: {{ claim.claim_type }}, 
+        Amount: {{ claim.amount_requested | currency }}, 
+        Status: {{ claim.status }},
+        Submitted On: {{ claim.submission_date | date }}
       </li>
     </ul>
   </div>

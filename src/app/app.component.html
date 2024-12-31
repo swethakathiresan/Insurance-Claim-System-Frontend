@@ -1,7 +1,7 @@
 <router-outlet></router-outlet>
 
 <!-- Static Content for Non-Login Pages (e.g., Top Nav and Sidebar) -->
-<div *ngIf="!isLoginRoute && !isAdminLoginRoute && !isPolicyUserRoute" class="top-nav">
+<div *ngIf="!isLoginRoute && !isAdminLoginRoute && !isPolicyUserRoute && !isAdminDashboardRoute && !isClaimsListRoute && !isClaimsDetailsRoute" class="top-nav">
   <div class="nav-left">
     <button class="menu-btn" (click)="toggleSidebar()">☰</button>
     <h1 class="nav-title">Insurance Claims Management</h1>
@@ -12,7 +12,7 @@
 </div>
 
 <!-- Sidebar -->
-<div *ngIf="!isLoginRoute && !isAdminLoginRoute && !isPolicyUserRoute" class="sidebar" [class.open]="sidebarOpen">
+<div *ngIf="!isLoginRoute && !isAdminLoginRoute && !isPolicyUserRoute && !isAdminDashboardRoute && !isClaimsListRoute && !isClaimsDetailsRoute" class="sidebar" [class.open]="sidebarOpen">
   <button class="close-btn" (click)="toggleSidebar()">✖</button>
   <ul>
     <li><a routerLink="/" class="sidebar-link">Home</a></li>
@@ -21,7 +21,7 @@
 </div>
 
 <!-- Main Content for Non-Login Pages -->
-<div *ngIf="!isLoginRoute && !isAdminLoginRoute && !isPolicyUserRoute" class="content">
+<div *ngIf="!isLoginRoute && !isAdminLoginRoute && !isPolicyUserRoute && !isAdminDashboardRoute && !isClaimsListRoute && !isClaimsDetailsRoute" class="content">
   <div class="content-wrapper">
     <h2 class="section-title">What is Insurance Claims Management System?</h2>
     <p class="section-description">

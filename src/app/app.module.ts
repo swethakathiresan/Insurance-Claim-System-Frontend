@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { PolicyuserComponent } from './policyuser/policyuser.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { ClaimsListComponent } from './claims-list/claims-list.component';
+import { ClaimsDetailsComponent } from './claims-details/claims-details.component';
 
 
 @NgModule({
@@ -15,6 +18,9 @@ import { PolicyuserComponent } from './policyuser/policyuser.component';
     LoginComponent,
     AdminLoginComponent,
     PolicyuserComponent,
+    AdminDashboardComponent,
+    ClaimsListComponent,
+    ClaimsDetailsComponent
   ],
   imports: [
     BrowserModule,

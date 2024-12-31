@@ -1,0 +1,13 @@
+<router-outlet></router-outlet>
+
+<!-- Static Top Navigation Bar -->
+<div class="top-navigation-bar">
+    <h2 class="title">Claims Details</h2>
+    <button class="back-button" [routerLink]="'/claims-list'">Back to Claims List</button>
+  </div>
+  
+  <!-- Claim Details Section -->
+  <div class="claim-details">
+    <p>Displaying Details for Claims ID: {{ claimId }}</p>
+  </div>
+  
