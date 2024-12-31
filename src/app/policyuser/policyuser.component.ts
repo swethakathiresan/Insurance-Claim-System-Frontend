@@ -159,15 +159,15 @@
 //   styleUrls: ['./policyuser.component.css'],
 // })
 // export class PolicyuserComponent implements OnInit {
-//   view: string = 'dashboard'; 
+//   view: string = 'dashboard';
 //   activePolicies: any[] = [];
 //   claimHistory: any[] = [];
 //   claim = {
 //     policyNumber: '',
 //     details: '',
 //   };
-//   userName: string = ''; 
-//   userId: string = ''; 
+//   userName: string = '';
+//   userId: string = '';
 //   constructor(private http: HttpClient, private router: Router) {}
 
 //   ngOnInit() {
@@ -263,6 +263,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-policyuser',
@@ -279,61 +280,72 @@ export class PolicyuserComponent implements OnInit {
     amountRequested: 0, // New field for amount requested
     details: '',
   };
-  
+
   userName: string = '';
   userId: number | null = null;
+  user: any;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
+    this.user = this.authService.getUserData();
     this.fetchUserDetails();
   }
 
   fetchUserDetails() {
-    this.http.get<any>('http://localhost:3000/api/users/details').subscribe({
-      next: (user) => {
-        this.userName = user.name;
-        this.userId = user.user_id;
-
-        this.fetchActivePolicies();
-        this.fetchClaimHistory();
-      },
-      error: (err) => {
-        console.error('Error fetching user details:', err);
-        alert('Unable to fetch user details. Please log in again.');
-        this.router.navigate(['/']);
-      },
-    });
+    this.http
+      .get<any>(`http://localhost:3000/api/users/${this.user.email}`)
+      .subscribe({
+        next: (user) => {
+          this.userName = user.name;
+          this.userId = user.user_id;
+          this.fetchActivePolicies();
+          this.fetchClaimHistory();
+        },
+        error: (err) => {
+          console.error('Error fetching user details:', err);
+          alert('Unable to fetch user details. Please log in again.');
+          this.router.navigate(['/']);
+        },
+      });
   }
 
   fetchActivePolicies() {
     if (this.userId === null) return;
-    this.http.get<any[]>(`http://localhost:3000/policies/${this.userId}`).subscribe({
-      next: (policies) => {
-        this.activePolicies = policies;
-      },
-      error: (err) => {
-        console.error('Error fetching active policies:', err);
-      },
-    });
+    this.http
+      .get<any[]>(`http://localhost:3000/policies/${this.userId}`)
+      .subscribe({
+        next: (policies) => {
+          this.activePolicies = policies;
+          // console.log(' activePolicies : ', this.activePolicies);
+        },
+        error: (err) => {
+          console.error('Error fetching active policies:', err);
+        },
+      });
   }
 
   fetchClaimHistory() {
     if (this.userId === null) return;
-    
-    this.http.get<any[]>(`http://localhost:3000/claims/user/${this.userId}`).subscribe({
-      next: (claims) => {
-      if (claims.length === 0) {
-        console.warn('No claims found for the user.'); // Debug log
-      }
-      this.claimHistory = claims; // Update the claimHistory
-    },
-      error: (err) => {
-        console.error('Error fetching claim history:', err);
-      },
-    });
+
+    this.http
+      .get<any[]>(`http://localhost:3000/claims/user/${this.userId}`)
+      .subscribe({
+        next: (claims) => {
+          if (claims.length === 0) {
+            console.warn('No claims found for the user.'); // Debug log
+          }
+          this.claimHistory = claims; // Update the claimHistory
+        },
+        error: (err) => {
+          console.error('Error fetching claim history:', err);
+        },
+      });
   }
-  
 
   setView(view: string) {
     this.view = view;
@@ -341,7 +353,7 @@ export class PolicyuserComponent implements OnInit {
 
   submitClaim() {
     if (this.userId === null) return;
-  
+
     const claimData = {
       userId: this.userId,
       policyNumber: this.claim.policyNumber,
@@ -350,19 +362,25 @@ export class PolicyuserComponent implements OnInit {
       details: this.claim.details,
       documents: 'document_url_or_path',
     };
-  
-    this.http.post('http://localhost:3000/claims/new-user', claimData).subscribe({
-      next: () => {
-        alert('Claim submitted successfully!');
-        this.fetchClaimHistory();
-        this.claim = { policyNumber: '', claimType: '', amountRequested: 0, details: '' }; // Reset fields
-      },
-      error: (err) => {
-        console.error('Error submitting claim:', err);
-      },
-    });
+
+    this.http
+      .post('http://localhost:3000/claims/new-user', claimData)
+      .subscribe({
+        next: () => {
+          alert('Claim submitted successfully!');
+          this.fetchClaimHistory();
+          this.claim = {
+            policyNumber: '',
+            claimType: '',
+            amountRequested: 0,
+            details: '',
+          }; // Reset fields
+        },
+        error: (err) => {
+          console.error('Error submitting claim:', err);
+        },
+      });
   }
-  
 
   uploadFiles(event: any) {
     console.log('Files uploaded:', event.target.files);
